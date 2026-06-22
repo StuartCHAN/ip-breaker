@@ -19,6 +19,8 @@ export default function HomePage() {
           </Link>
           <div className="nav-links">
             <Link href="/submit">Run demo scan</Link>
+            <Link href="/license">License probe</Link>
+            <Link href="/probes">x402 probes</Link>
             <Link href="/report">View report</Link>
             <a href="https://github.com/StuartCHAN/ip-breaker" target="_blank" rel="noreferrer">GitHub</a>
           </div>
@@ -33,7 +35,8 @@ export default function HomePage() {
             </p>
             <div className="actions">
               <Link className="btn btn-primary" href="/submit">Run IP Red-Team Scan</Link>
-              <Link className="btn btn-secondary" href="/report">View Sample Report</Link>
+              <Link className="btn btn-secondary" href="/license">Try License Probe</Link>
+              <Link className="btn btn-secondary" href="/probes">Demo x402 Probe Flow</Link>
             </div>
           </div>
 
