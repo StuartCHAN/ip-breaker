@@ -19,6 +19,8 @@ export default function ReportPage() {
           <div className="nav-links">
             <Link href="/">Home</Link>
             <Link href="/submit">Run again</Link>
+            <Link href="/license">License probe</Link>
+            <Link href="/probes">x402 probes</Link>
             <a href="https://github.com/StuartCHAN/ip-breaker" target="_blank" rel="noreferrer">GitHub</a>
           </div>
         </nav>
@@ -36,9 +38,13 @@ export default function ReportPage() {
             <span className="badge badge-red">{mockReport.verdict}</span>
             <h2 style={{ marginTop: 18 }}>Launch Risk Attestation</h2>
             <p>
-              The report hash and risk metadata are ready to be anchored on Casper Testnet. Raw source code, screenshots, and confidential product materials remain off-chain.
+              The report hash and risk metadata are staged for Casper Testnet attestation. The MVP currently displays mock deploy data; the next build step is replacing it with a real Casper Testnet transaction.
             </p>
             <div style={{ display: "grid", gap: 10, marginTop: 18 }}>
+              <div>
+                <strong>Attestation status</strong>
+                <div className="hash">MOCK_READY_FOR_TESTNET_DEPLOY</div>
+              </div>
               <div>
                 <strong>Work hash</strong>
                 <div className="hash">{mockReport.workHash}</div>
@@ -81,19 +87,21 @@ export default function ReportPage() {
 
         <section className="grid">
           <div className="panel card">
-            <span className="badge badge-blue">Next action</span>
-            <h3 style={{ marginTop: 14 }}>Rename</h3>
-            <p>Change AirBoard to a less collision-prone name such as AeroCanvas before public launch.</p>
+            <span className="badge badge-blue">Live module</span>
+            <h3 style={{ marginTop: 14 }}>License Probe</h3>
+            <p>Open the package metadata probe to see a real local scan for copyleft and unknown license signals.</p>
+            <Link className="btn btn-secondary" href="/license">Open License Probe</Link>
           </div>
           <div className="panel card">
-            <span className="badge badge-yellow">Next action</span>
-            <h3 style={{ marginTop: 14 }}>Replace dependencies</h3>
-            <p>Remove or isolate packages requiring deeper copyleft and attribution review.</p>
+            <span className="badge badge-yellow">Live module</span>
+            <h3 style={{ marginTop: 14 }}>x402 Probe Flow</h3>
+            <p>Show the unpaid 402 response and paid retry flow for a specialized IP probe.</p>
+            <Link className="btn btn-secondary" href="/probes">Open x402 Flow</Link>
           </div>
           <div className="panel card">
             <span className="badge badge-green">Next action</span>
-            <h3 style={{ marginTop: 14 }}>Request FTO review</h3>
-            <p>Ask qualified IP counsel to review high-value technical workflows before commercial launch.</p>
+            <h3 style={{ marginTop: 14 }}>Casper Testnet</h3>
+            <p>Replace the mock deploy hash with a real RiskAttestationRegistry transaction.</p>
           </div>
         </section>
 
