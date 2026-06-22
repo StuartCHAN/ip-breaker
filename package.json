@@ -1,0 +1,14 @@
+{
+  "name": "ip-breaker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Agentic IP Firewall for Vibe-Coded Products",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev:web": "npm --workspace apps/web run dev",
+    "build:web": "npm --workspace apps/web run build",
+    "lint:web": "npm --workspace apps/web run lint"
+  }
+}
