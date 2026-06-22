@@ -76,6 +76,7 @@ button, input, textarea, select {
   gap: 18px;
   color: var(--muted);
   font-size: 14px;
+  flex-wrap: wrap;
 }
 
 .hero {
@@ -144,6 +145,11 @@ p {
   align-items: center;
   justify-content: center;
   font-weight: 700;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .btn-primary {
@@ -295,6 +301,21 @@ textarea {
   color: #bae6fd;
   word-break: break-all;
   font-size: 13px;
+}
+
+.code-block {
+  width: 100%;
+  max-height: 520px;
+  overflow: auto;
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: rgba(2, 6, 23, 0.72);
+  color: #dbeafe;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.6;
+  white-space: pre-wrap;
 }
 
 .footer-note {
