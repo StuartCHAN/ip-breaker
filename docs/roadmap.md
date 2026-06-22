@@ -9,18 +9,18 @@
 
 ## Phase 1: Clickable Demo
 
-- [ ] Build landing page
-- [ ] Build work submission form
-- [ ] Create AirBoard sample product
-- [ ] Create mock scan results
-- [ ] Display Launch Risk Dashboard
-- [ ] Generate scan report JSON
-- [ ] Generate report hash
+- [x] Build landing page
+- [x] Build work submission form
+- [x] Create AirBoard sample product
+- [x] Create mock scan results
+- [x] Display Launch Risk Dashboard
+- [x] Generate scan report JSON
+- [x] Generate report hash
 
 ## Phase 2: IP Red-Team Agent
 
 - [ ] Implement agent planning workflow
-- [ ] Implement License Contamination Attack
+- [x] Implement License Contamination Attack
 - [ ] Implement Trademark Collision Attack mock probe
 - [ ] Implement Patent Claim Trap mock probe
 - [ ] Implement Design Lookalike mock probe
@@ -28,8 +28,8 @@
 
 ## Phase 3: x402 Probe Market
 
-- [ ] Implement mock HTTP 402 paid probe flow
-- [ ] Add probe receipt hash to final report
+- [x] Implement mock HTTP 402 paid probe flow
+- [x] Add probe receipt hash to final report path
 - [ ] Convert one probe into a real x402-style endpoint if time permits
 
 ## Phase 4: Casper Testnet Attestation
@@ -37,7 +37,7 @@
 - [ ] Implement RiskAttestationRegistry
 - [ ] Deploy to Casper Testnet
 - [ ] Write report hash and risk metadata on-chain
-- [ ] Display Casper transaction link in dashboard
+- [x] Display Casper transaction status placeholder in dashboard
 
 ## Phase 5: Submission Assets
 
