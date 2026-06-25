@@ -1,0 +1,94 @@
+IP BREAKER SOURCE-AVAILABLE EVALUATION LICENSE
+Version 1.0 — June 2026
+
+Copyright (c) 2026 Stuart CHEN. All rights reserved.
+
+This license applies to the source code, documentation, screenshots, demo assets,
+copy, user interface text, sample data, risk-scoring design, probe orchestration
+workflow, and other materials in this repository, except where a different license
+or third-party notice is expressly stated.
+
+1. Purpose
+
+This repository is made publicly available for buildathon review, technical
+evaluation, demonstration, and non-commercial testing of the IP Breaker project.
+This is a source-available evaluation license, not an open-source license.
+
+2. Permitted Uses
+
+Subject to this license, you may:
+
+(a) view and inspect the repository;
+(b) clone or fork the repository on GitHub for personal, non-commercial evaluation;
+(c) run the software locally for non-commercial testing, review, education, or
+    buildathon judging;
+(d) quote short excerpts of the documentation or screenshots for review,
+    commentary, or nominative reference, provided that you identify IP Breaker
+    and Stuart CHEN as the source.
+
+3. Prohibited Uses
+
+You may not, without prior written permission from Stuart CHEN:
+
+(a) use the project or any substantial part of it for commercial purposes;
+(b) sell, license, sublicense, host, or provide the software as a service;
+(c) deploy a competing or substantially similar hosted service, product, agent,
+    probe market, risk-scoring system, or IP risk workflow based on this repository;
+(d) copy, redistribute, publish, or make available substantial portions of the
+    repository outside GitHub's normal fork/view functionality;
+(e) create or distribute derivative works, modified versions, or substantially
+    similar products based on the project;
+(f) remove, alter, or obscure copyright, trademark, attribution, disclaimer, or
+    license notices;
+(g) use the names, logos, screenshots, demo assets, or brand elements of
+    IP Breaker except for nominative reference;
+(h) use the project to provide legal opinions, infringement opinions, validity
+    opinions, clearance opinions, freedom-to-operate opinions, or other regulated
+    legal services without proper authorization.
+
+4. No Trademark License
+
+This license does not grant any trademark, service mark, trade name, trade dress,
+logo, or brand license. See TRADEMARKS.md for additional brand-use guidance.
+
+5. No Patent License
+
+No patent license is granted, whether express or implied, by estoppel or otherwise.
+
+6. Third-Party Materials
+
+Third-party packages, libraries, frameworks, APIs, services, marks, or datasets
+referenced by this project remain subject to their own licenses and terms. This
+license does not override any third-party license.
+
+7. Contributions
+
+Unless a separate written agreement is signed, any contribution submitted to this
+repository may be used, modified, displayed, and incorporated by Stuart CHEN for
+the IP Breaker project and related commercial or non-commercial versions.
+Contributors are responsible for ensuring that they have the right to submit their
+contributions.
+
+8. Evaluation Only; No Legal Advice
+
+IP Breaker is a pre-launch IP risk triage and red-team style review tool. It does
+not provide legal opinions, legal advice, infringement opinions, validity opinions,
+clearance opinions, or formal freedom-to-operate opinions.
+
+9. No Warranty
+
+THE PROJECT IS PROVIDED "AS IS" AND "AS AVAILABLE", WITHOUT WARRANTIES OF ANY
+KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, ACCURACY,
+SECURITY, OR AVAILABILITY.
+
+10. Limitation of Liability
+
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, STUART CHEN SHALL NOT BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE
+DAMAGES ARISING FROM OR RELATED TO THIS PROJECT OR THIS LICENSE.
+
+11. Permission Requests
+
+For commercial licensing, partnership, deployment, research collaboration, or
+other permission requests, please contact the repository owner through GitHub.
