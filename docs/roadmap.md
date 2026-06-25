@@ -28,9 +28,10 @@
 
 ## Phase 3: x402 Probe Market
 
-- [x] Implement mock HTTP 402 paid probe flow
+- [x] Implement HTTP 402 paid probe flow
 - [x] Add probe receipt hash to final report path
-- [ ] Convert one probe into a real x402-style endpoint if time permits
+- [x] Verify a paid probe with a Casper Testnet transaction hash
+- [ ] Add wallet-native Casper payment initiation inside the web app
 
 ## Phase 4: Casper Testnet Attestation
 
@@ -41,7 +42,7 @@
 
 ## Phase 5: Submission Assets
 
-- [ ] Record demo video
-- [ ] Add screenshots to README
-- [ ] Update DoraHacks BUIDL profile
+- [x] Record demo video
+- [x] Add screenshots to README
+- [x] Update DoraHacks BUIDL profile
 - [ ] Share social post for community voting
