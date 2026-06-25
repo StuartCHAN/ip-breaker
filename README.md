@@ -22,17 +22,17 @@
 | ![IP Breaker landing page](docs/images/ip-breaker-homepage.jpg)                 | ![IP Breaker submission flow](docs/images/ip-breaker-submit-flow.jpg)                        |
 | IP Breaker frames IP risk as a pre-launch attack surface for AI-built products. | Builders submit repo, product name, target market, UI screenshot, and technical description. |
 
-| Launch Risk Report                                                                                | x402-Style Paid Probe                                                                               |
-| ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| ![IP Breaker launch risk report](docs/images/ip-breaker-risk-report.jpg)                          | ![IP Breaker x402 paid probe flow](docs/images/ip-breaker-x402-probe-flow.jpg)                      |
-| The report shows risk score, verdict, findings, hashes, and Casper-oriented attestation metadata. | The paid probe flow demonstrates HTTP 402, Casper Testnet deploy-hash verification, scan result, and probe receipt hash. |
+| Launch Risk Report                                                                                | Casper-Verified Paid Probe                                                                            |
+| ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| ![IP Breaker launch risk report](docs/images/ip-breaker-risk-report.jpg)                          | ![IP Breaker Casper paid probe flow](docs/images/ip-breaker-x402-probe-flow.jpg)                       |
+| The report shows risk score, verdict, findings, hashes, and Casper-oriented attestation metadata. | The paid probe flow demonstrates HTTP 402, Casper Testnet transaction verification, block hash, and paid probe result. |
 
 
 ## Built For
 
 **Casper Agentic Buildathon 2026 Qualification Round**
 
-IP Breaker is built as an AI-agent and developer tooling project for the emerging agent economy. It combines pre-launch intellectual property risk triage, agent-style probe orchestration, an x402-style paid probe flow, Casper Testnet deploy-hash payment verification, and Casper-oriented launch-risk attestation.
+IP Breaker is built as an AI-agent and developer tooling project for the emerging agent economy. It combines pre-launch intellectual property risk triage, agent-style probe orchestration, an x402-style paid probe flow, Casper Testnet transaction-hash payment verification, and Casper-oriented launch-risk attestation.
 
 ## Problem
 
@@ -70,7 +70,7 @@ The demo includes:
 - A clickable product submission flow.
 - A Launch Risk Report with a risk score and findings.
 - A working local **License Contamination Probe**.
-- An **x402-style paid probe flow** showing HTTP 402 and Casper Testnet deploy-hash verification.
+- An **x402-style paid probe flow** showing HTTP 402 and Casper Testnet transaction-hash verification.
 - A Casper Testnet attestation placeholder showing work hash, report hash, and deploy metadata.
 
 ## Why Casper
@@ -79,7 +79,7 @@ IP Breaker is designed for the agent economy.
 
 - AI agents can use MCP-style tools to call specialized IP risk probes.
 - x402-style paid probes allow agents to pay per scan or per data source.
-- Casper Testnet deploy hashes can be used as payment receipts before a paid probe returns results.
+- Casper Testnet transaction hashes can be used as payment receipts before a paid probe returns results.
 - Casper Testnet can anchor launch-risk attestations, report hashes, issue codes, and scanner agent identity.
 - Only hashes and minimal risk metadata are written on-chain. Raw source code, screenshots, product files, and business secrets stay off-chain.
 
@@ -132,10 +132,10 @@ Routes:
 - `/submit` — AirBoard product submission demo
 - `/report` — Launch Risk Report dashboard
 - `/license` — working License Contamination Probe page
-- `/probes` — x402-style paid probe flow with Casper Testnet deploy-hash verification
+- `/probes` — x402-style paid probe flow with Casper Testnet transaction-hash verification
 - `/api/scan` — mock full IP risk report API
 - `/api/license-probe` — license probe API
-- `/api/casper-payment` — Casper Testnet deploy-hash payment verification API
+- `/api/casper-payment` — Casper Testnet transaction-hash payment verification API
 - `/api/x402-probe` — paid probe API returning HTTP 402 before payment verification
 
 ### License Probe
@@ -156,9 +156,9 @@ The `/probes` page demonstrates a paid probe flow:
 1. The first request is made without payment.
 2. The API returns `HTTP 402 Payment Required` and Casper Testnet payment requirements.
 3. The user or agent transfers the quoted CSPR amount to the configured probe provider account.
-4. The user or agent submits the Casper Testnet deploy hash.
-5. The backend calls Casper JSON-RPC `info_get_deploy` to verify deploy success, transfer amount, and recipient.
-6. The paid probe result is returned only after the deploy hash is verified.
+4. The user or agent submits the Casper Testnet transaction hash.
+5. The backend calls Casper JSON-RPC `info_get_transaction`, with a legacy `info_get_deploy` fallback, to verify execution success, transfer amount, and recipient.
+6. The paid probe result is returned only after the transaction hash is verified.
 
 Required environment variables for production verification:
 
@@ -218,7 +218,7 @@ This project has completed a first clickable MVP for the Casper Agentic Buildath
 - [x] Launch Risk Report
 - [x] Working local license-risk classifier
 - [x] x402-style paid probe flow
-- [x] Casper Testnet deploy-hash payment verifier
+- [x] Casper Testnet transaction-hash payment verifier
 - [x] Casper attestation placeholder
 - [x] Public Vercel deployment
 - [x] Demo video
