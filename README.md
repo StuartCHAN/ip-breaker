@@ -1,155 +1,107 @@
-# IP Breaker
+<div align="center">
 
-**Agentic IP Firewall for Vibe-Coded Products**
+# 🛡️ IP Breaker
 
-> Before your AI-built product goes live, let an IP agent attack it first.
+### Agentic IP Firewall for Vibe-Coded Products
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-7C3AED)](https://ip-breaker-web.vercel.app/)
-[![Demo Video](https://img.shields.io/badge/Demo%20Video-YouTube-red)](https://www.youtube.com/watch?v=ea7GjoQM6Ig)
-[![BUIDL](https://img.shields.io/badge/DoraHacks-BUIDL-blue)](https://dorahacks.io/buidl/45903)
+**Before your AI-built product goes live, let an IP agent attack it first.**
 
-## Live Links
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-7C3AED?style=for-the-badge)](https://ip-breaker-web.vercel.app/)
+[![Demo Video](https://img.shields.io/badge/Demo%20Video-YouTube-red?style=for-the-badge)](https://www.youtube.com/watch?v=ea7GjoQM6Ig)
+[![DoraHacks](https://img.shields.io/badge/DoraHacks-BUIDL-2563EB?style=for-the-badge)](https://dorahacks.io/buidl/45903)
+[![Casper](https://img.shields.io/badge/Casper-Testnet-00C2FF?style=for-the-badge)](#casper-testnet-payment-verification)
 
-- **Live demo:** https://ip-breaker-web.vercel.app/
-- **Demo video:** https://www.youtube.com/watch?v=ea7GjoQM6Ig
-- **DoraHacks BUIDL:** https://dorahacks.io/buidl/45903
-- **GitHub:** https://github.com/StuartCHAN/ip-breaker
+![Next.js](https://img.shields.io/badge/Next.js-Clickable%20MVP-black)
+![Agentic AI](https://img.shields.io/badge/Agentic%20AI-Evidence--backed-7C3AED)
+![HTTP 402](https://img.shields.io/badge/HTTP%20402-Paid%20Probe-F59E0B)
+![License Probe](https://img.shields.io/badge/License%20Probe-Working-10B981)
+![Not Legal Advice](https://img.shields.io/badge/Not%20Legal%20Advice-Risk%20Triage-EF4444)
 
-## Screenshots
+</div>
 
-| Agentic IP Firewall                                                             | Product Submission                                                                           |
-| ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| ![IP Breaker landing page](docs/images/ip-breaker-homepage.jpg)                 | ![IP Breaker submission flow](docs/images/ip-breaker-submit-flow.jpg)                        |
+---
+
+## ⚡ The 15-second pitch
+
+**IP Breaker is an evidence-backed IP risk agent for AI-built products.**
+
+Vibe coding helps builders ship fast, but it also creates a new launch risk surface: generated code, open-source dependencies, product names, UI lookalikes, logos, and patent-like technical workflows. IP Breaker decomposes a submitted product into IP risk surfaces, plans which probes to run, normalizes evidence, generates a Launch Risk Score, and can unlock paid probes through Casper Testnet transaction verification.
+
+> IP Breaker does **not** claim to provide infringement, clearance, validity, or FTO opinions. It provides pre-launch IP risk triage for builders.
+
+---
+
+## 🔗 Live links
+
+| Resource | Link |
+|---|---|
+| 🚀 Live demo | https://ip-breaker-web.vercel.app/ |
+| 🧠 Agent workflow | https://ip-breaker-web.vercel.app/agent |
+| 💳 Casper-paid probe flow | https://ip-breaker-web.vercel.app/probes |
+| 🎬 Demo video | https://www.youtube.com/watch?v=ea7GjoQM6Ig |
+| 🏗️ DoraHacks BUIDL | https://dorahacks.io/buidl/45903 |
+| 💻 GitHub | https://github.com/StuartCHAN/ip-breaker |
+
+---
+
+## ✨ What judges should notice
+
+| Buildathon signal | What is working now |
+|---|---|
+| **Agentic workflow** | `/agent` extracts IP risk surfaces, plans probe calls, normalizes evidence, scores risk, and writes a structured report. |
+| **Working probe** | `/license` runs a real local license classifier over package metadata and flags GPL / AGPL / LGPL / unknown signals. |
+| **Paid agent-tool pattern** | `/probes` returns HTTP 402 before payment and returns probe results only after Casper Testnet transaction verification. |
+| **Casper integration** | Backend verifies transaction success, amount, recipient account, and block hash through Casper Testnet JSON-RPC. |
+| **Privacy-aware design** | Raw code, screenshots, and confidential product data stay off-chain; hashes and minimal metadata are intended for attestation. |
+| **IP-native positioning** | The product is not a generic legal chatbot; it is a structured pre-launch IP risk firewall. |
+
+---
+
+## 📸 Screenshots
+
+| Agentic IP Firewall | Product Submission |
+|---|---|
+| ![IP Breaker landing page](docs/images/ip-breaker-homepage.jpg) | ![IP Breaker submission flow](docs/images/ip-breaker-submit-flow.jpg) |
 | IP Breaker frames IP risk as a pre-launch attack surface for AI-built products. | Builders submit repo, product name, target market, UI screenshot, and technical description. |
 
-| Launch Risk Report                                                                                | Casper-Verified Paid Probe                                                                            |
-| ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
-| ![IP Breaker launch risk report](docs/images/ip-breaker-risk-report.jpg)                          | ![IP Breaker Casper paid probe flow](docs/images/ip-breaker-x402-probe-flow.jpg)                       |
-| The report shows risk score, verdict, findings, hashes, and Casper-oriented attestation metadata. | The paid probe flow demonstrates HTTP 402, Casper Testnet transaction verification, block hash, and paid probe result. |
+| Launch Risk Report | Casper-Verified Paid Probe |
+|---|---|
+| ![IP Breaker launch risk report](docs/images/ip-breaker-risk-report.jpg) | ![IP Breaker Casper paid probe flow](docs/images/ip-breaker-x402-probe-flow.jpg) |
+| Risk score, verdict, findings, hashes, and Casper-oriented attestation metadata. | HTTP 402, Casper Testnet transaction verification, block hash, and paid probe result. |
 
+---
 
-## Built For
+## 🧭 Demo map
 
-**Casper Agentic Buildathon 2026 Qualification Round**
+| Page | What it shows |
+|---|---|
+| `/` | Product positioning and quick entry points. |
+| `/agent` | Evidence-backed IP agent workflow: surface extraction → planner → probe calls → report. |
+| `/submit` | AirBoard sample product submission. |
+| `/report` | Launch Risk Score and structured IP risk findings. |
+| `/license` | Working License Contamination Probe. |
+| `/probes` | x402-style paid probe flow with Casper Testnet transaction verification. |
+| `/api/agent-run` | Structured JSON output for the agent workflow. |
+| `/api/casper-payment` | Casper payment requirements and verification endpoint. |
 
-IP Breaker is built as an AI-agent and developer tooling project for the emerging agent economy. It combines pre-launch intellectual property risk triage, agent-style probe orchestration, an x402-style paid probe flow, Casper Testnet transaction-hash payment verification, and Casper-oriented launch-risk attestation.
+---
 
-## Problem
+## 🧠 Evidence-backed IP agent
 
-Vibe coding tools make it possible to build and launch products in hours. However, many AI-built products are shipped without checking whether the generated work creates intellectual property risk.
+IP Breaker follows a **planner → tool calls → evidence → report** pattern.
 
-A product may include license-contaminated code, copied code patterns, confusingly similar names or logos, UI/design lookalikes, or technical features that require patent or freedom-to-operate review before public launch.
-
-IP Breaker treats intellectual property risk as a **pre-launch attack surface**.
-
-## Solution
-
-IP Breaker is a red-team agent for AI-built products. A builder submits a GitHub repo, product name, logo or UI screenshot, target market, and technical description. The agent decomposes the product into IP risk surfaces and runs multiple review playbooks:
-
-- **License Contamination Attack** — reviews package metadata and dependency license signals.
-- **Code Clone Attack** — identifies possible copied-code or public-code similarity risk signals.
-- **Trademark Collision Attack** — checks whether the product name, logo, or slogan may collide with existing brands.
-- **Design Lookalike Attack** — reviews UI or visual similarity risk signals.
-- **Patent Claim Trap Attack** — decomposes technical workflows into features that may require patent/FTO review.
-
-The output is a **Launch Risk Score**, concrete findings, recommended actions, and a report hash prepared for Casper Testnet attestation.
-
-## MVP Demo
-
-The public demo uses a fictional vibe-coded product called **AirBoard**, an AI whiteboard collaboration app.
-
-The builder wants to launch AirBoard publicly. IP Breaker reviews the product name, UI pattern, package metadata, and technical description. The demo report identifies several pre-launch risk signals:
-
-- A possible product-name collision in SaaS/software categories.
-- A UI lookalike risk against known collaboration product patterns.
-- A copyleft dependency review issue in the dependency chain.
-- Patent claim-trap clusters that may require freedom-to-operate review.
-
-The demo includes:
-
-- A clickable product submission flow.
-- An evidence-backed **Agent Run** page showing surface extraction, probe planning, tool-style probe calls, normalized evidence, and report writing.
-- A Launch Risk Report with a risk score and findings.
-- A working local **License Contamination Probe**.
-- An **x402-style paid probe flow** showing HTTP 402 and Casper Testnet transaction-hash verification.
-- A Casper Testnet attestation placeholder showing work hash, report hash, and deploy metadata.
-
-## Why Casper
-
-IP Breaker is designed for the agent economy.
-
-- AI agents can use MCP-style tools to call specialized IP risk probes.
-- x402-style paid probes allow agents to pay per scan or per data source.
-- Casper Testnet transaction hashes can be used as payment receipts before a paid probe returns results.
-- Casper Testnet can anchor launch-risk attestations, report hashes, issue codes, and scanner agent identity.
-- Only hashes and minimal risk metadata are written on-chain. Raw source code, screenshots, product files, and business secrets stay off-chain.
-
-## Architecture
-
-```text
-Product Submission
-        |
-        v
-IP Surface Extractor
-        |
-        v
-Agent Planner
-        |
-        v
-Probe Registry / MCP-style Tools
-        |
-        v
-Evidence Normalizer
-        |
-        v
-Risk Scoring Engine
-        |
-        v
-Launch Risk Report
-        |
-        v
-Casper receipt / report hash / probe receipt hash
+```mermaid
+flowchart TD
+  A[Product Submission] --> B[IP Surface Extractor]
+  B --> C[Agent Planner]
+  C --> D[Probe Registry / MCP-style Tools]
+  D --> E[Evidence Normalizer]
+  E --> F[Risk Scoring Engine]
+  F --> G[Launch Risk Report]
+  G --> H[Casper receipt / report hash / probe receipt hash]
 ```
 
-## On-chain Attestation Model
-
-The Casper-oriented attestation stores only minimal metadata:
-
-```text
-work_hash
-report_hash
-risk_score
-verdict
-issue_codes
-scanner_agent_id
-created_at
-```
-
-The registry does **not** store raw source code, private files, screenshots, business secrets, or legal conclusions.
-
-## Current Implementation
-
-### Web App
-
-The demo web app is built with **Next.js** and deployed on Vercel.
-
-Routes:
-
-- `/` — landing page
-- `/agent` — evidence-backed IP agent workflow demo
-- `/submit` — AirBoard product submission demo
-- `/report` — Launch Risk Report dashboard
-- `/license` — working License Contamination Probe page
-- `/probes` — x402-style paid probe flow with Casper Testnet transaction-hash verification
-- `/api/agent-run` — structured agent workflow and report JSON
-- `/api/scan` — mock full IP risk report API
-- `/api/license-probe` — license probe API
-- `/api/casper-payment` — Casper Testnet transaction-hash payment verification API
-- `/api/x402-probe` — paid probe API returning HTTP 402 before payment verification
-
-### Evidence-backed Agent Workflow
-
-The `/agent` page demonstrates the main AI-agent pattern:
+The `/agent` route demonstrates the core agent workflow:
 
 1. Extract IP risk surfaces from product metadata.
 2. Plan which probes should run.
@@ -157,31 +109,79 @@ The `/agent` page demonstrates the main AI-agent pattern:
 4. Normalize findings into a consistent result schema.
 5. Score launch risk and write a report with human-review triggers.
 
-The agent does not claim to decide infringement, validity, clearance, or FTO. It produces structured pre-launch risk triage that can be reviewed by a builder or IP professional.
+The current agent selects four probe types for the AirBoard sample:
 
-### License Probe
+| Probe | Current role |
+|---|---|
+| **License Contamination Probe** | Checks package metadata and dependency license signals. |
+| **Trademark Collision Probe** | Generates name-risk signals and search terms for WIPO / USPTO / EUIPO style review. |
+| **Design Lookalike Probe** | Flags crowded UI / logo pattern signals for visual originality review. |
+| **Patent Claim Trap Probe** | Extracts claim-like feature clusters and patent search strings. |
 
-The license probe analyzes package metadata and classifies license signals into:
+---
 
-- permissive license signals
-- weak-copyleft license signals
-- strong-copyleft license signals
-- unknown license signals
+## 🧪 AirBoard demo case
 
-For the AirBoard sample, GPL and AGPL-style dependencies are flagged before launch.
+The MVP demo uses **AirBoard**, a fictional vibe-coded AI whiteboard collaboration app.
 
-### x402-style Paid Probe Flow with Casper Payment Verification
+The builder wants to launch AirBoard publicly. IP Breaker reviews the product name, UI pattern, package metadata, and technical description. The demo report identifies several pre-launch risk signals:
 
-The `/probes` page demonstrates a paid probe flow:
+- **HIGH** — possible product-name collision in SaaS / software markets.
+- **HIGH** — GPL / AGPL dependency review issue in the dependency chain.
+- **MEDIUM** — UI lookalike risk against common collaboration dashboard patterns.
+- **MEDIUM** — patent claim-trap clusters that may require FTO review.
 
-1. The first request is made without payment.
-2. The API returns `HTTP 402 Payment Required` and Casper Testnet payment requirements.
-3. The user or agent transfers the quoted CSPR amount to the configured probe provider account.
-4. The user or agent submits the Casper Testnet transaction hash.
-5. The backend calls Casper JSON-RPC `info_get_transaction`, with a legacy `info_get_deploy` fallback, to verify execution success, transfer amount, and recipient.
-6. The paid probe result is returned only after the transaction hash is verified.
+Example agent output:
 
-Required environment variables for production verification:
+```json
+{
+  "mode": "evidence-backed-ip-agent",
+  "product": "AirBoard",
+  "riskScore": 77,
+  "verdict": "MODIFY BEFORE LAUNCH",
+  "selectedProbes": [
+    "license-contamination-probe",
+    "trademark-collision-probe",
+    "design-lookalike-probe",
+    "patent-claim-trap-probe"
+  ]
+}
+```
+
+---
+
+## 💳 Casper Testnet payment verification
+
+The paid probe flow is no longer just a UI mock. The current MVP verifies a real Casper Testnet transaction hash before returning the paid License Contamination Probe result.
+
+```mermaid
+sequenceDiagram
+  participant Agent
+  participant ProbeAPI as /api/x402-probe
+  participant CasperAPI as /api/casper-payment
+  participant Casper as Casper Testnet RPC
+
+  Agent->>ProbeAPI: Request paid probe without receipt
+  ProbeAPI-->>Agent: HTTP 402 Payment Required
+  Agent->>Casper: Transfer CSPR to probe provider account
+  Agent->>CasperAPI: Submit transaction hash
+  CasperAPI->>Casper: Verify transaction, amount, recipient, block hash
+  Casper-->>CasperAPI: verified_on_chain
+  Agent->>ProbeAPI: Retry with transaction receipt header
+  ProbeAPI-->>Agent: Paid probe result
+```
+
+Verified payment fields returned by the live MVP include:
+
+```text
+status: verified_on_chain
+mode: casper-testnet-paid-probe
+amount: 2.5 CSPR
+blockHash: 59babd734176dc63746355b43cff530a52d4a89bfc5cf44ef1f879c70e51b266
+rpcMethod: info_get_transaction/object-params-version1
+```
+
+Required environment variables:
 
 ```bash
 CASPER_PAYMENT_ACCOUNT_HASH=account-hash-...
@@ -190,13 +190,40 @@ CASPER_RPC_URL=https://node.testnet.casper.network/rpc
 CASPER_PAYMENT_NETWORK=casper-testnet
 ```
 
-This demonstrates how specialized IP probes could become paid agent-callable tools backed by blockchain payment receipts.
+---
 
-### Casper Attestation Placeholder
+## 🏗️ Current implementation
 
-The report page currently displays a Casper Testnet attestation placeholder. The intended production path is to replace the placeholder deploy hash with a real Casper Testnet transaction that anchors the report hash and minimal risk metadata.
+### Web app
 
-## Local Development
+The demo web app is built with **Next.js** and deployed on Vercel.
+
+| Route | Description |
+|---|---|
+| `/` | Landing page. |
+| `/agent` | Evidence-backed IP agent workflow demo. |
+| `/submit` | AirBoard product submission demo. |
+| `/report` | Launch Risk Report dashboard. |
+| `/license` | Working License Contamination Probe page. |
+| `/probes` | x402-style paid probe flow with Casper Testnet transaction-hash verification. |
+| `/api/agent-run` | Structured agent workflow and report JSON. |
+| `/api/scan` | Mock full IP risk report API. |
+| `/api/license-probe` | License probe API. |
+| `/api/casper-payment` | Casper Testnet transaction-hash payment verification API. |
+| `/api/x402-probe` | Paid probe API returning HTTP 402 before payment verification. |
+
+### Repository structure
+
+```text
+apps/web/              Next.js clickable demo
+apps/web/app/          Pages and API routes
+apps/web/lib/          Mock scan data, license probe logic, IP agent workflow, Casper payment verifier
+docs/                  Architecture, demo flow, disclaimer, roadmap, submission summary
+```
+
+---
+
+## 🧰 Local development
 
 ```bash
 npm install
@@ -215,24 +242,46 @@ Build:
 npm run build:web
 ```
 
-## Repository Structure
+Useful local checks:
 
 ```text
-apps/web/              Next.js clickable demo
-apps/web/app/          Pages and API routes
-apps/web/lib/          Mock scan data, license probe logic, IP agent workflow, Casper payment verifier
-docs/                  Architecture, demo flow, disclaimer, roadmap, submission summary
+http://localhost:3000/api/agent-run
+http://localhost:3000/api/license-probe
+http://localhost:3000/api/casper-payment
+http://localhost:3000/api/x402-probe
 ```
 
-## Disclaimer
+---
+
+## 🔐 Privacy and attestation model
+
+The Casper-oriented attestation model stores only minimal metadata:
+
+```text
+work_hash
+report_hash
+risk_score
+verdict
+issue_codes
+scanner_agent_id
+created_at
+```
+
+The registry does **not** store raw source code, private files, screenshots, business secrets, or legal conclusions.
+
+---
+
+## ⚠️ Disclaimer
 
 IP Breaker does **not** provide legal opinions, legal advice, infringement opinions, validity opinions, clearance opinions, or formal freedom-to-operate opinions.
 
 It performs pre-launch IP risk triage and red-team style review. High-risk findings should be reviewed by qualified intellectual property counsel before launch, fundraising, investment, or commercial deployment.
 
-## Status
+---
 
-This project has completed a first clickable MVP for the Casper Agentic Buildathon 2026 Qualification Round.
+## ✅ Status
+
+This project has completed a first clickable MVP for the **Casper Agentic Buildathon 2026 Qualification Round**.
 
 - [x] Landing page and submission form
 - [x] Evidence-backed IP agent workflow page
@@ -246,7 +295,9 @@ This project has completed a first clickable MVP for the Casper Agentic Buildath
 - [x] Demo video
 - [x] DoraHacks BUIDL submission
 
-## Roadmap
+---
+
+## 🛣️ Roadmap
 
 - [ ] Connect live trademark, patent, and design search probes.
 - [ ] Add real MCP server wrappers for external IP probes.
@@ -255,3 +306,11 @@ This project has completed a first clickable MVP for the Casper Agentic Buildath
 - [ ] Replace the placeholder deploy hash with a real Casper Testnet transaction.
 - [ ] Add repository-level scan ingestion for real GitHub projects.
 - [ ] Add report export and shareable attestation verification pages.
+
+---
+
+<div align="center">
+
+**AI makes products faster. IP Breaker makes them safer to launch.**
+
+</div>
