@@ -4,6 +4,8 @@
 
 ### Agentic IP Firewall for Vibe-Coded Products
 
+[English](README.md) · [Français](README.fr.md)
+
 **Red-team your AI-built product before launch.**  
 **Paid IP probes. Casper-verified receipts. Launch-risk intelligence for the agent economy.**
 
