@@ -59,7 +59,7 @@ The current clickable MVP includes:
 - a product submission flow using the fictional AI whiteboard product **AirBoard**;
 - a Launch Risk Report showing risk score, verdict, findings, and recommendations;
 - a working local **License Contamination Probe**;
-- a mock **x402-style paid probe flow**;
+- an x402-style paid probe flow verified by a Casper Testnet transaction hash;
 - a Casper Testnet attestation placeholder showing work hash, report hash, and deploy metadata.
 
 ## Demo Walkthrough
@@ -72,7 +72,7 @@ The demo flow shows:
 2. IP Breaker generates a Launch Risk Report;
 3. the report flags possible trademark, license, UI, and patent/FTO risk signals;
 4. the License Probe classifies dependency license risks;
-5. the x402-style probe flow first returns HTTP 402 and then returns results after a mock payment retry;
+5. the paid probe flow first returns HTTP 402, then returns results after the backend verifies a Casper Testnet transaction hash;
 6. the report displays a Casper-oriented attestation area where only hashes and minimal metadata are intended to be anchored on-chain.
 
 ## Agent Economy Fit
@@ -91,7 +91,9 @@ This makes IP Breaker compatible with a future market of specialized agent-calla
 
 ## Casper Fit
 
-Casper is used as the trust layer for launch-risk attestations.
+Casper is used as the trust layer for launch-risk attestations and paid probe receipts.
+
+The current paid probe flow verifies a Casper Testnet transaction hash, amount, recipient account, block hash, and execution status before returning the paid License Contamination Probe result.
 
 The intended Casper attestation model stores only minimal metadata:
 
@@ -121,16 +123,15 @@ This MVP is intentionally scoped for a buildathon demo:
 
 - trademark, design, patent, and code-clone probes are represented as structured mock or planned modules;
 - the license probe is the main working local classifier;
-- the x402 flow is a mock implementation showing the intended interaction pattern;
-- the Casper deploy hash is currently a placeholder rather than a live testnet transaction.
+- the x402-style flow currently uses manual Casper Testnet transaction-hash verification rather than wallet-native checkout;
+- the Casper report attestation registry is still a placeholder and has not yet been deployed as a smart contract.
 
 ## Next Steps
 
 - Connect live trademark, patent, and design search APIs or datasets.
 - Add MCP wrappers for specialized IP probes.
-- Replace the mock x402 flow with a live compatible payment flow.
+- Add wallet-native Casper payment initiation inside the web app.
 - Deploy a minimal Casper Testnet attestation registry.
-- Replace the placeholder deploy hash with a real Casper Testnet transaction.
 - Add support for real GitHub repository ingestion and report export.
 
 ## Disclaimer
