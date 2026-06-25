@@ -25,6 +25,7 @@ export type CasperPaymentVerification = {
     target?: string;
     deployAccount?: string;
     blockHash?: string;
+    rpcMethod?: string;
   };
   error?: unknown;
 };
@@ -42,7 +43,7 @@ export function getCasperPaymentRequirements() {
         resource: casperPaymentConfig.resource,
         description: casperPaymentConfig.description,
         verification: {
-          method: "Casper JSON-RPC info_get_deploy",
+          method: "Casper JSON-RPC info_get_transaction, with info_get_deploy fallback",
           rpcUrl: casperPaymentConfig.rpcUrl,
           requiredHeader: "x-casper-deploy-hash"
         }
@@ -63,7 +64,7 @@ export async function verifyCasperPayment(deployHash: string): Promise<CasperPay
     return {
       ok: false,
       status: "missing_deploy_hash",
-      message: "Paste a Casper Testnet deploy hash before requesting the paid probe result.",
+      message: "Paste a Casper Testnet transaction or deploy hash before requesting the paid probe result.",
       required
     };
   }
@@ -79,39 +80,24 @@ export async function verifyCasperPayment(deployHash: string): Promise<CasperPay
     };
   }
 
-  const rpcPayload = {
-    id: 1,
-    jsonrpc: "2.0",
-    method: "info_get_deploy",
-    params: {
-      deploy_hash: cleanedDeployHash
-    }
-  };
-
   try {
-    const response = await fetch(casperPaymentConfig.rpcUrl, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json"
-      },
-      body: JSON.stringify(rpcPayload),
-      cache: "no-store"
-    });
+    const transactionAttempt = await queryCasperRpc("info_get_transaction", cleanedDeployHash);
+    const deployAttempt = transactionAttempt.ok ? undefined : await queryCasperRpc("info_get_deploy", cleanedDeployHash);
+    const selected = transactionAttempt.ok ? transactionAttempt : deployAttempt;
 
-    const rpcResponse = await response.json();
-
-    if (!response.ok || rpcResponse.error) {
+    if (!selected?.ok || !selected.rpcResponse) {
       return {
         ok: false,
         status: "rpc_error",
-        message: "Casper RPC did not return a usable deploy response.",
+        message: "Casper RPC did not return a usable transaction or deploy response.",
         deployHash: cleanedDeployHash,
         required,
-        error: rpcResponse.error ?? rpcResponse
+        error: deployAttempt?.error ?? transactionAttempt.error
       };
     }
 
-    const result = rpcResponse.result;
+    const rpcMethod = selected.method;
+    const result = unwrapRpcResult(selected.rpcResponse.result);
     const success = hasExecutionSuccess(result);
     const amountMotes = extractTransferAmountMotes(result);
     const target = extractTransferTarget(result);
@@ -127,14 +113,15 @@ export async function verifyCasperPayment(deployHash: string): Promise<CasperPay
       amountCSPR: amountMotes === undefined ? undefined : motesToCSPR(amountMotes),
       target,
       deployAccount,
-      blockHash
+      blockHash,
+      rpcMethod
     };
 
     if (!success) {
       return {
         ok: false,
         status: "deploy_not_successful",
-        message: "The deploy exists, but its execution result is not successful yet.",
+        message: "The transaction exists, but its execution result is not successful yet.",
         deployHash: cleanedDeployHash,
         required,
         observed
@@ -145,7 +132,7 @@ export async function verifyCasperPayment(deployHash: string): Promise<CasperPay
       return {
         ok: false,
         status: "amount_too_low_or_missing",
-        message: `The deploy was found, but the transfer amount is missing or below ${casperPaymentConfig.amountCSPR} CSPR.`,
+        message: `The transaction was found, but the transfer amount is missing or below ${casperPaymentConfig.amountCSPR} CSPR.`,
         deployHash: cleanedDeployHash,
         required,
         observed
@@ -156,7 +143,7 @@ export async function verifyCasperPayment(deployHash: string): Promise<CasperPay
       return {
         ok: false,
         status: "recipient_mismatch",
-        message: "The deploy was found, but the transfer target does not match the configured probe provider account.",
+        message: "The transaction was found, but the transfer target does not match the configured probe provider account.",
         deployHash: cleanedDeployHash,
         required,
         observed
@@ -175,12 +162,73 @@ export async function verifyCasperPayment(deployHash: string): Promise<CasperPay
     return {
       ok: false,
       status: "verification_error",
-      message: "Unable to verify the Casper payment deploy. Check the deploy hash and RPC endpoint.",
+      message: "Unable to verify the Casper payment transaction. Check the transaction hash and RPC endpoint.",
       deployHash: cleanedDeployHash,
       required,
       error
     };
   }
+}
+
+type RpcMethod = "info_get_transaction" | "info_get_deploy";
+
+async function queryCasperRpc(method: RpcMethod, hash: string) {
+  const rpcPayload =
+    method === "info_get_transaction"
+      ? {
+          id: 1,
+          jsonrpc: "2.0",
+          method,
+          params: [
+            {
+              name: "transaction_hash",
+              value: {
+                Version1: hash
+              }
+            },
+            {
+              name: "finalized_approvals",
+              value: true
+            }
+          ]
+        }
+      : {
+          id: 1,
+          jsonrpc: "2.0",
+          method,
+          params: [
+            {
+              name: "deploy_hash",
+              value: hash
+            },
+            {
+              name: "finalized_approvals",
+              value: true
+            }
+          ]
+        };
+
+  const response = await fetch(casperPaymentConfig.rpcUrl, {
+    method: "POST",
+    headers: {
+      "content-type": "application/json"
+    },
+    body: JSON.stringify(rpcPayload),
+    cache: "no-store"
+  });
+
+  const rpcResponse = await response.json();
+
+  if (!response.ok || rpcResponse.error) {
+    return { ok: false, method, error: rpcResponse.error ?? rpcResponse };
+  }
+
+  return { ok: true, method, rpcResponse };
+}
+
+function unwrapRpcResult(result: unknown): unknown {
+  if (isRecord(result) && "value" in result) return result.value;
+  return result;
 }
 
 function csprToMotes(cspr: string): bigint {
@@ -197,11 +245,35 @@ function motesToCSPR(motes: bigint): string {
 }
 
 function hasExecutionSuccess(result: unknown): boolean {
+  const executionInfo = isRecord(result) ? result.execution_info : undefined;
+
+  if (isRecord(executionInfo)) {
+    const text = JSON.stringify(executionInfo);
+    return text.includes("execution_result") && !text.includes("Failure") && !text.includes("error_message\":\"");
+  }
+
+  const executionResults = isRecord(result) ? result.execution_results : undefined;
+  if (Array.isArray(executionResults) && executionResults.length > 0) {
+    const text = JSON.stringify(executionResults);
+    return !text.includes("Failure") && !text.includes("error_message\":\"");
+  }
+
   const text = JSON.stringify(result ?? {});
   return text.includes('"Success"') && !text.includes('"Failure"');
 }
 
 function extractTransferAmountMotes(result: unknown): bigint | undefined {
+  const amountFromTransfer = findTransferField(result, "amount");
+  const parsedTransferAmount = extractParsedValue(amountFromTransfer);
+
+  if (parsedTransferAmount) {
+    try {
+      return BigInt(parsedTransferAmount);
+    } catch {
+      return undefined;
+    }
+  }
+
   const arg = findNamedArg(result, "amount");
   const parsed = extractParsedValue(arg);
   if (!parsed) return undefined;
@@ -214,12 +286,24 @@ function extractTransferAmountMotes(result: unknown): bigint | undefined {
 }
 
 function extractTransferTarget(result: unknown): string | undefined {
+  const transferTo = findTransferField(result, "to");
+  const parsedTransferTo = extractParsedValue(transferTo);
+  if (parsedTransferTo) return parsedTransferTo;
+
   const arg = findNamedArg(result, "target");
   return extractParsedValue(arg);
 }
 
 function extractDeployAccount(result: unknown): string | undefined {
   if (!isRecord(result)) return undefined;
+
+  const transaction = result.transaction;
+  if (isRecord(transaction)) {
+    const txText = JSON.stringify(transaction);
+    const publicKeyMatch = txText.match(/"PublicKey":"([^"]+)"/);
+    if (publicKeyMatch?.[1]) return publicKeyMatch[1];
+  }
+
   const deploy = result.deploy;
   if (!isRecord(deploy)) return undefined;
   const account = deploy.account;
@@ -228,12 +312,45 @@ function extractDeployAccount(result: unknown): string | undefined {
 
 function extractBlockHash(result: unknown): string | undefined {
   if (!isRecord(result)) return undefined;
+
+  const executionInfo = result.execution_info;
+  if (isRecord(executionInfo) && typeof executionInfo.block_hash === "string") {
+    return executionInfo.block_hash;
+  }
+
   const executionResults = result.execution_results;
   if (!Array.isArray(executionResults)) return undefined;
   const first = executionResults[0];
   if (!isRecord(first)) return undefined;
   const blockHash = first.block_hash;
   return typeof blockHash === "string" ? blockHash : undefined;
+}
+
+function findTransferField(node: unknown, field: string): unknown {
+  if (Array.isArray(node)) {
+    for (const item of node) {
+      const found = findTransferField(item, field);
+      if (found !== undefined) return found;
+    }
+  }
+
+  if (isRecord(node)) {
+    const version2 = node.Version2;
+    if (isRecord(version2) && field in version2) return version2[field];
+
+    if ("transfers" in node) {
+      const transfers = node.transfers;
+      const found = findTransferField(transfers, field);
+      if (found !== undefined) return found;
+    }
+
+    for (const value of Object.values(node)) {
+      const found = findTransferField(value, field);
+      if (found !== undefined) return found;
+    }
+  }
+
+  return undefined;
 }
 
 function findNamedArg(node: unknown, name: string): unknown {
@@ -267,6 +384,7 @@ function extractParsedValue(value: unknown): string | undefined {
   if (typeof value.parsed === "string") return value.parsed;
   if (typeof value.bytes === "string") return value.bytes;
   if (typeof value.value === "string") return value.value;
+  if (typeof value.AccountHash === "string") return value.AccountHash;
 
   return undefined;
 }
