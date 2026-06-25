@@ -43,15 +43,18 @@ const sampleLicenseMap: Record<string, string> = {
   "collab-presence": "MPL-2.0"
 };
 
-const highRiskLicenses = ["GPL", "AGPL", "SSPL"];
-const mediumRiskLicenses = ["LGPL", "MPL", "CDDL", "EPL"];
-
 function classifyLicense(license: string): LicenseRiskLevel {
-  const normalized = license.toUpperCase();
+  const normalized = license.toUpperCase().trim();
   if (!license || normalized === "UNKNOWN") return "UNKNOWN";
-  if (highRiskLicenses.some((item) => normalized.includes(item))) return "HIGH";
-  if (mediumRiskLicenses.some((item) => normalized.includes(item))) return "MEDIUM";
+
+  if (normalized.includes("AGPL") || normalized.includes("SSPL") || isStandaloneGpl(normalized)) return "HIGH";
+  if (normalized.includes("LGPL") || normalized.includes("MPL") || normalized.includes("CDDL") || normalized.includes("EPL")) return "MEDIUM";
+
   return "LOW";
+}
+
+function isStandaloneGpl(normalized: string) {
+  return normalized === "GPL" || normalized.startsWith("GPL-") || normalized.includes(" GPL-") || normalized.includes("/GPL-");
 }
 
 function explainRisk(license: string, risk: LicenseRiskLevel) {
