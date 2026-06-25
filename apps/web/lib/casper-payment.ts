@@ -183,7 +183,33 @@ type RpcAttempt = {
 async function queryCasperRpcCandidates(hash: string): Promise<RpcAttempt> {
   const payloads: RpcPayload[] = [
     {
-      label: "info_get_transaction/version1-object",
+      label: "info_get_transaction/object-params-version1",
+      body: {
+        id: 1,
+        jsonrpc: "2.0",
+        method: "info_get_transaction",
+        params: {
+          transaction_hash: {
+            Version1: hash
+          },
+          finalized_approvals: true
+        }
+      }
+    },
+    {
+      label: "info_get_transaction/object-params-string",
+      body: {
+        id: 1,
+        jsonrpc: "2.0",
+        method: "info_get_transaction",
+        params: {
+          transaction_hash: hash,
+          finalized_approvals: true
+        }
+      }
+    },
+    {
+      label: "info_get_transaction/named-args-version1",
       body: {
         id: 1,
         jsonrpc: "2.0",
@@ -203,7 +229,7 @@ async function queryCasperRpcCandidates(hash: string): Promise<RpcAttempt> {
       }
     },
     {
-      label: "info_get_transaction/string-hash",
+      label: "info_get_transaction/named-args-string",
       body: {
         id: 1,
         jsonrpc: "2.0",
@@ -221,7 +247,19 @@ async function queryCasperRpcCandidates(hash: string): Promise<RpcAttempt> {
       }
     },
     {
-      label: "info_get_deploy/string-hash",
+      label: "info_get_deploy/object-params-string",
+      body: {
+        id: 1,
+        jsonrpc: "2.0",
+        method: "info_get_deploy",
+        params: {
+          deploy_hash: hash,
+          finalized_approvals: true
+        }
+      }
+    },
+    {
+      label: "info_get_deploy/named-args-string",
       body: {
         id: 1,
         jsonrpc: "2.0",
@@ -236,18 +274,6 @@ async function queryCasperRpcCandidates(hash: string): Promise<RpcAttempt> {
             value: true
           }
         ]
-      }
-    },
-    {
-      label: "info_get_deploy/object-params",
-      body: {
-        id: 1,
-        jsonrpc: "2.0",
-        method: "info_get_deploy",
-        params: {
-          deploy_hash: hash,
-          finalized_approvals: true
-        }
       }
     }
   ];
