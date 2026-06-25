@@ -1,0 +1,30 @@
+IP Breaker Copyright and Attribution Notice
+
+Copyright (c) 2026 Stuart CHEN. All rights reserved.
+
+IP Breaker is a source-available project made public for buildathon evaluation,
+technical review, demonstration, and non-commercial testing only, subject to the
+IP Breaker Source-Available Evaluation License in the LICENSE file.
+
+Protected project materials include, without limitation:
+
+- the IP Breaker source code;
+- documentation, README files, architecture descriptions, and demo text;
+- screenshots, videos, logos, visual assets, and other demo materials;
+- the IP Breaker name, logo, shield mark, slogans, and brand presentation;
+- the evidence-backed IP agent workflow;
+- the risk scoring design and report structure;
+- the probe orchestration model;
+- the x402-style paid probe flow and Casper Testnet verification design;
+- sample product scenarios, including the AirBoard demo case.
+
+No permission is granted for commercial use, redistribution, sublicensing,
+competing hosted services, or use of IP Breaker brand assets without prior written
+permission from Stuart CHEN.
+
+Third-party packages, APIs, frameworks, datasets, marks, and services referenced
+by this repository remain subject to their own licenses, terms, and rights.
+
+IP Breaker does not provide legal opinions, legal advice, infringement opinions,
+validity opinions, clearance opinions, or formal freedom-to-operate opinions. It
+performs pre-launch IP risk triage and red-team style review only.
