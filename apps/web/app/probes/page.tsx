@@ -70,7 +70,7 @@ export default function ProbeMarketPage() {
           <div className="kicker">Casper Testnet · Paid Probe Market</div>
           <h1 style={{ fontSize: "clamp(38px, 5vw, 64px)" }}>Pay per IP probe.</h1>
           <p className="lede">
-            This page upgrades the earlier mock x402-style flow into a Casper Testnet payment-verification flow: the probe first returns HTTP 402, then unlocks only after a Casper deploy hash is verified by the backend.
+            This page upgrades the earlier mock x402-style flow into a Casper Testnet payment-verification flow: the probe first returns HTTP 402, then unlocks only after a Casper transaction hash is verified by the backend.
           </p>
         </section>
 
@@ -87,7 +87,7 @@ export default function ProbeMarketPage() {
           <div className="panel card">
             <span className="badge badge-yellow">Step 2</span>
             <h3 style={{ marginTop: 14 }}>Pay on Casper Testnet</h3>
-            <p>Transfer the quoted amount to the configured probe provider account, then paste the Casper deploy hash below.</p>
+            <p>Transfer the quoted amount to the configured probe provider account, then paste the Casper transaction hash below.</p>
             <p className="hash">Amount: 0.10 CSPR</p>
             <p className="hash">Network: casper-testnet</p>
           </div>
@@ -95,7 +95,7 @@ export default function ProbeMarketPage() {
           <div className="panel card">
             <span className="badge badge-green">Step 3</span>
             <h3 style={{ marginTop: 14 }}>Verify and unlock</h3>
-            <p>The backend verifies the deploy through Casper JSON-RPC before returning the paid probe result.</p>
+            <p>The backend verifies the transaction through Casper JSON-RPC before returning the paid probe result.</p>
             <button className="btn btn-primary" onClick={verifyPaymentAndRequestProbe} disabled={loading || !deployHash.trim()}>
               Verify Casper payment + run probe
             </button>
@@ -113,14 +113,14 @@ export default function ProbeMarketPage() {
 
           <div className="panel form">
             <span className="badge badge-blue">Casper receipt</span>
-            <h3 style={{ marginTop: 14 }}>Submit deploy hash</h3>
+            <h3 style={{ marginTop: 14 }}>Submit transaction hash</h3>
             <p>
               For production, set <code>CASPER_PAYMENT_ACCOUNT_HASH</code> in Vercel so the verifier can check the exact recipient account.
             </p>
             <div className="field">
-              <label>Casper Testnet deploy hash</label>
+              <label>Casper Testnet transaction hash</label>
               <input
-                placeholder="Paste Casper deploy hash after payment"
+                placeholder="Paste Casper transaction hash after payment"
                 value={deployHash}
                 onChange={(event) => setDeployHash(event.target.value)}
               />
@@ -128,7 +128,7 @@ export default function ProbeMarketPage() {
             <pre className="code-block">
               {verificationResponse
                 ? JSON.stringify(verificationResponse, null, 2)
-                : "After payment, paste the deploy hash and click the verification button."}
+                : "After payment, paste the transaction hash and click the verification button."}
             </pre>
           </div>
 
@@ -136,7 +136,7 @@ export default function ProbeMarketPage() {
             <span className="badge badge-green">Paid response</span>
             <h3 style={{ marginTop: 14 }}>Probe result payload</h3>
             <pre className="code-block">
-              {paidResponse ? JSON.stringify(paidResponse, null, 2) : "A verified Casper deploy hash is required before the paid probe result is returned."}
+              {paidResponse ? JSON.stringify(paidResponse, null, 2) : "A verified Casper transaction hash is required before the paid probe result is returned."}
             </pre>
           </div>
         </section>
