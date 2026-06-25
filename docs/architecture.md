@@ -1,6 +1,6 @@
 # Architecture
 
-IP Breaker is built around four layers:
+IP Breaker is built around five layers:
 
 1. **Work Intake Layer**
    - Accepts GitHub repo URL, product name, logo, UI screenshot, product description, target market, and product category.
@@ -18,7 +18,12 @@ IP Breaker is built around four layers:
    - Design Probe: checks UI / visual similarity risk.
    - Code Clone Probe: checks suspected copied public code patterns.
 
-4. **Casper Attestation Layer**
+4. **Paid Probe Verification Layer**
+   - Returns HTTP 402 before paid probe access.
+   - Accepts a Casper Testnet transaction hash as the probe receipt.
+   - Verifies transaction success, transfer amount, recipient account, and block hash through Casper JSON-RPC.
+
+5. **Casper Attestation Layer**
    - Stores report hashes and risk metadata on Casper Testnet.
    - Does not store source code, confidential product files, legal conclusions, or raw search results.
 
@@ -34,7 +39,10 @@ Create work hash
 IP Red-Team Agent plans attack playbooks
         |
         v
-Run probes
+Run free or paid probes
+        |
+        v
+Verify Casper Testnet payment receipt for paid probes
         |
         v
 Generate Launch Risk Report
@@ -65,9 +73,9 @@ RiskAttestation {
 }
 ```
 
-## x402 Probe Market Concept
+## x402-style Probe Market Concept
 
-In the MVP, paid probes may be simulated first. The intended flow is:
+The implemented MVP flow is:
 
 ```text
 Agent requests a specialized IP probe
@@ -76,13 +84,16 @@ Agent requests a specialized IP probe
 Probe server returns HTTP 402 Payment Required
         |
         v
-Agent completes x402-style payment flow
+User or agent transfers CSPR on Casper Testnet
+        |
+        v
+Backend verifies transaction hash, amount, recipient, and block hash
         |
         v
 Probe returns scan result
         |
         v
-Probe receipt hash is included in the final report
+Probe receipt hash is included in the final report path
 ```
 
 ## Privacy Principle
