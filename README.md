@@ -68,6 +68,7 @@ The builder wants to launch AirBoard publicly. IP Breaker reviews the product na
 The demo includes:
 
 - A clickable product submission flow.
+- An evidence-backed **Agent Run** page showing surface extraction, probe planning, tool-style probe calls, normalized evidence, and report writing.
 - A Launch Risk Report with a risk score and findings.
 - A working local **License Contamination Probe**.
 - An **x402-style paid probe flow** showing HTTP 402 and Casper Testnet transaction-hash verification.
@@ -86,22 +87,28 @@ IP Breaker is designed for the agent economy.
 ## Architecture
 
 ```text
-User Work Submission
+Product Submission
         |
         v
-IP Red-Team Agent
+IP Surface Extractor
         |
-        +--> License Probe
-        +--> Trademark Probe
-        +--> Patent Probe
-        +--> Design Probe
-        +--> Code Clone Probe
+        v
+Agent Planner
+        |
+        v
+Probe Registry / MCP-style Tools
+        |
+        v
+Evidence Normalizer
+        |
+        v
+Risk Scoring Engine
         |
         v
 Launch Risk Report
         |
         v
-Casper Risk Attestation Registry
+Casper receipt / report hash / probe receipt hash
 ```
 
 ## On-chain Attestation Model
@@ -129,14 +136,28 @@ The demo web app is built with **Next.js** and deployed on Vercel.
 Routes:
 
 - `/` — landing page
+- `/agent` — evidence-backed IP agent workflow demo
 - `/submit` — AirBoard product submission demo
 - `/report` — Launch Risk Report dashboard
 - `/license` — working License Contamination Probe page
 - `/probes` — x402-style paid probe flow with Casper Testnet transaction-hash verification
+- `/api/agent-run` — structured agent workflow and report JSON
 - `/api/scan` — mock full IP risk report API
 - `/api/license-probe` — license probe API
 - `/api/casper-payment` — Casper Testnet transaction-hash payment verification API
 - `/api/x402-probe` — paid probe API returning HTTP 402 before payment verification
+
+### Evidence-backed Agent Workflow
+
+The `/agent` page demonstrates the main AI-agent pattern:
+
+1. Extract IP risk surfaces from product metadata.
+2. Plan which probes should run.
+3. Run evidence-producing probes.
+4. Normalize findings into a consistent result schema.
+5. Score launch risk and write a report with human-review triggers.
+
+The agent does not claim to decide infringement, validity, clearance, or FTO. It produces structured pre-launch risk triage that can be reviewed by a builder or IP professional.
 
 ### License Probe
 
@@ -199,7 +220,7 @@ npm run build:web
 ```text
 apps/web/              Next.js clickable demo
 apps/web/app/          Pages and API routes
-apps/web/lib/          Mock scan data, license probe logic, Casper payment verifier
+apps/web/lib/          Mock scan data, license probe logic, IP agent workflow, Casper payment verifier
 docs/                  Architecture, demo flow, disclaimer, roadmap, submission summary
 ```
 
@@ -214,6 +235,7 @@ It performs pre-launch IP risk triage and red-team style review. High-risk findi
 This project has completed a first clickable MVP for the Casper Agentic Buildathon 2026 Qualification Round.
 
 - [x] Landing page and submission form
+- [x] Evidence-backed IP agent workflow page
 - [x] AirBoard sample product flow
 - [x] Launch Risk Report
 - [x] Working local license-risk classifier
