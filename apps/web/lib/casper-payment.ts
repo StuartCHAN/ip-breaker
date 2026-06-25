@@ -81,18 +81,16 @@ export async function verifyCasperPayment(deployHash: string): Promise<CasperPay
   }
 
   try {
-    const transactionAttempt = await queryCasperRpc("info_get_transaction", cleanedDeployHash);
-    const deployAttempt = transactionAttempt.ok ? undefined : await queryCasperRpc("info_get_deploy", cleanedDeployHash);
-    const selected = transactionAttempt.ok ? transactionAttempt : deployAttempt;
+    const selected = await queryCasperRpcCandidates(cleanedDeployHash);
 
-    if (!selected?.ok || !selected.rpcResponse) {
+    if (!selected.ok || !selected.rpcResponse) {
       return {
         ok: false,
         status: "rpc_error",
         message: "Casper RPC did not return a usable transaction or deploy response.",
         deployHash: cleanedDeployHash,
         required,
-        error: deployAttempt?.error ?? transactionAttempt.error
+        error: selected.error
       };
     }
 
@@ -170,44 +168,106 @@ export async function verifyCasperPayment(deployHash: string): Promise<CasperPay
   }
 }
 
-type RpcMethod = "info_get_transaction" | "info_get_deploy";
+type RpcPayload = {
+  label: string;
+  body: unknown;
+};
 
-async function queryCasperRpc(method: RpcMethod, hash: string) {
-  const rpcPayload =
-    method === "info_get_transaction"
-      ? {
-          id: 1,
-          jsonrpc: "2.0",
-          method,
-          params: [
-            {
-              name: "transaction_hash",
-              value: {
-                Version1: hash
-              }
-            },
-            {
-              name: "finalized_approvals",
-              value: true
+type RpcAttempt = {
+  ok: boolean;
+  method: string;
+  rpcResponse?: { result?: unknown; error?: unknown };
+  error?: unknown;
+};
+
+async function queryCasperRpcCandidates(hash: string): Promise<RpcAttempt> {
+  const payloads: RpcPayload[] = [
+    {
+      label: "info_get_transaction/version1-object",
+      body: {
+        id: 1,
+        jsonrpc: "2.0",
+        method: "info_get_transaction",
+        params: [
+          {
+            name: "transaction_hash",
+            value: {
+              Version1: hash
             }
-          ]
+          },
+          {
+            name: "finalized_approvals",
+            value: true
+          }
+        ]
+      }
+    },
+    {
+      label: "info_get_transaction/string-hash",
+      body: {
+        id: 1,
+        jsonrpc: "2.0",
+        method: "info_get_transaction",
+        params: [
+          {
+            name: "transaction_hash",
+            value: hash
+          },
+          {
+            name: "finalized_approvals",
+            value: true
+          }
+        ]
+      }
+    },
+    {
+      label: "info_get_deploy/string-hash",
+      body: {
+        id: 1,
+        jsonrpc: "2.0",
+        method: "info_get_deploy",
+        params: [
+          {
+            name: "deploy_hash",
+            value: hash
+          },
+          {
+            name: "finalized_approvals",
+            value: true
+          }
+        ]
+      }
+    },
+    {
+      label: "info_get_deploy/object-params",
+      body: {
+        id: 1,
+        jsonrpc: "2.0",
+        method: "info_get_deploy",
+        params: {
+          deploy_hash: hash,
+          finalized_approvals: true
         }
-      : {
-          id: 1,
-          jsonrpc: "2.0",
-          method,
-          params: [
-            {
-              name: "deploy_hash",
-              value: hash
-            },
-            {
-              name: "finalized_approvals",
-              value: true
-            }
-          ]
-        };
+      }
+    }
+  ];
 
+  const errors: unknown[] = [];
+
+  for (const payload of payloads) {
+    const attempt = await postCasperRpc(payload.label, payload.body);
+    if (attempt.ok) return attempt;
+    errors.push({ method: payload.label, error: attempt.error });
+  }
+
+  return {
+    ok: false,
+    method: "all-rpc-candidates-failed",
+    error: errors
+  };
+}
+
+async function postCasperRpc(label: string, rpcPayload: unknown): Promise<RpcAttempt> {
   const response = await fetch(casperPaymentConfig.rpcUrl, {
     method: "POST",
     headers: {
@@ -220,10 +280,10 @@ async function queryCasperRpc(method: RpcMethod, hash: string) {
   const rpcResponse = await response.json();
 
   if (!response.ok || rpcResponse.error) {
-    return { ok: false, method, error: rpcResponse.error ?? rpcResponse };
+    return { ok: false, method: label, error: rpcResponse.error ?? rpcResponse };
   }
 
-  return { ok: true, method, rpcResponse };
+  return { ok: true, method: label, rpcResponse };
 }
 
 function unwrapRpcResult(result: unknown): unknown {
