@@ -15,6 +15,19 @@
 - **DoraHacks BUIDL:** https://dorahacks.io/buidl/45903
 - **GitHub:** https://github.com/StuartCHAN/ip-breaker
 
+## Screenshots
+
+| Agentic IP Firewall                                                             | Product Submission                                                                           |
+| ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| ![IP Breaker landing page](docs/images/ip-breaker-homepage.jpg)                 | ![IP Breaker submission flow](docs/images/ip-breaker-submit-flow.jpg)                        |
+| IP Breaker frames IP risk as a pre-launch attack surface for AI-built products. | Builders submit repo, product name, target market, UI screenshot, and technical description. |
+
+| Launch Risk Report                                                                                | x402-Style Paid Probe                                                                               |
+| ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+| ![IP Breaker launch risk report](docs/images/ip-breaker-risk-report.jpg)                          | ![IP Breaker x402 paid probe flow](docs/images/ip-breaker-x402-probe-flow.jpg)                      |
+| The report shows risk score, verdict, findings, hashes, and Casper-oriented attestation metadata. | The mock paid probe flow demonstrates HTTP 402, payment retry, scan result, and probe receipt hash. |
+
+
 ## Built For
 
 **Casper Agentic Buildathon 2026 Qualification Round**
