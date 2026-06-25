@@ -121,7 +121,7 @@ function runProbes(surface: RiskSurface): ProbeResult[] {
 
 function runLicenseProbe(surface: RiskSurface): ProbeResult {
   const result = analyzePackageJson(airBoardPackageJson);
-  const highOrUnknown = result.findings.filter((finding) => finding.risk === "HIGH" || finding.risk === "UNKNOWN");
+  const reviewFindings = result.findings.filter((finding) => finding.risk !== "LOW");
   const riskLevel: RiskLevel = result.highRiskCount > 0 ? "HIGH" : result.unknownCount > 0 ? "UNKNOWN" : result.mediumRiskCount > 0 ? "MEDIUM" : "LOW";
 
   return {
@@ -129,14 +129,14 @@ function runLicenseProbe(surface: RiskSurface): ProbeResult {
     title: "License Contamination Probe",
     riskLevel,
     confidence: 0.86,
-    evidence: highOrUnknown.slice(0, 4).map((finding) => ({
+    evidence: reviewFindings.slice(0, 5).map((finding) => ({
       source: "package.json dependency metadata",
       matchedField: finding.packageName,
-      snippet: `${finding.packageName}@${finding.versionRange} declares ${finding.declaredLicense}`
+      snippet: `${finding.packageName}@${finding.versionRange} declares ${finding.declaredLicense} (${finding.risk})`
     })),
-    reasoning: `The local classifier reviewed ${result.totalDependencies} dependencies and found ${result.highRiskCount} high-risk license signals and ${result.unknownCount} unknown license signal.`,
-    recommendation: "Replace, isolate, or review strong-copyleft and unknown dependencies before public launch or distribution.",
-    humanReviewTrigger: "High-risk or unknown license findings should be reviewed before commercial launch."
+    reasoning: `The local classifier reviewed ${result.totalDependencies} dependencies and found ${result.highRiskCount} high-risk license signals, ${result.mediumRiskCount} medium-risk signal, and ${result.unknownCount} unknown license signal.`,
+    recommendation: "Replace, isolate, or review strong-copyleft and unknown dependencies before public launch or distribution; review weak-copyleft obligations before packaging or SaaS distribution.",
+    humanReviewTrigger: "High-risk, medium-risk, or unknown license findings should be reviewed before commercial launch."
   };
 }
 
