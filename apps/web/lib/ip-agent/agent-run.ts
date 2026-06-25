@@ -225,8 +225,8 @@ function runPatentProbe(surface: RiskSurface): ProbeResult {
 function scoreAgentRun(results: ProbeResult[]) {
   const weights: Record<RiskLevel, number> = {
     LOW: 8,
-    MEDIUM: 18,
-    HIGH: 28,
+    MEDIUM: 20,
+    HIGH: 32,
     UNKNOWN: 16
   };
 
