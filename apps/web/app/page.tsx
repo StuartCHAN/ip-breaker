@@ -18,9 +18,10 @@ export default function HomePage() {
             <span>IP Breaker</span>
           </Link>
           <div className="nav-links">
+            <Link href="/agent">Agent run</Link>
             <Link href="/submit">Run demo scan</Link>
             <Link href="/license">License probe</Link>
-            <Link href="/probes">x402 probes</Link>
+            <Link href="/probes">Paid probes</Link>
             <Link href="/report">View report</Link>
             <a href="https://github.com/StuartCHAN/ip-breaker" target="_blank" rel="noreferrer">GitHub</a>
           </div>
@@ -34,9 +35,9 @@ export default function HomePage() {
               Vibe coding makes products faster. IP Breaker makes them safer to launch by scanning code, names, logos, UI patterns, and technical features for pre-launch IP risk signals.
             </p>
             <div className="actions">
-              <Link className="btn btn-primary" href="/submit">Run IP Red-Team Scan</Link>
-              <Link className="btn btn-secondary" href="/license">Try License Probe</Link>
-              <Link className="btn btn-secondary" href="/probes">Demo x402 Probe Flow</Link>
+              <Link className="btn btn-primary" href="/agent">View Agent Workflow</Link>
+              <Link className="btn btn-secondary" href="/submit">Run IP Red-Team Scan</Link>
+              <Link className="btn btn-secondary" href="/probes">Demo Paid Probe Flow</Link>
             </div>
           </div>
 
@@ -55,8 +56,8 @@ export default function HomePage() {
         <section className="grid">
           <div className="panel card">
             <span className="badge badge-blue">Agentic AI</span>
-            <h3 style={{ marginTop: 14 }}>IP red-team agent</h3>
-            <p>The agent decomposes a submitted work into IP attack surfaces and chooses the right probes to run.</p>
+            <h3 style={{ marginTop: 14 }}>Evidence-backed IP agent</h3>
+            <p>The agent decomposes submitted work into IP risk surfaces, plans probe calls, and reports only evidence-backed findings.</p>
           </div>
           <div className="panel card">
             <span className="badge badge-yellow">x402 / MCP</span>
@@ -65,8 +66,8 @@ export default function HomePage() {
           </div>
           <div className="panel card">
             <span className="badge badge-green">Casper</span>
-            <h3 style={{ marginTop: 14 }}>Risk attestation</h3>
-            <p>Only report hashes and minimal risk metadata are anchored on Casper Testnet. Raw code stays off-chain.</p>
+            <h3 style={{ marginTop: 14 }}>Payment and attestation</h3>
+            <p>Casper Testnet transaction hashes can unlock paid probes, while report hashes can support later launch-risk attestation.</p>
           </div>
         </section>
 
